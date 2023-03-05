@@ -1,21 +1,4 @@
 export default class TweetService {
-  tweets = [
-    {
-      id: 1,
-      text: '드림코딩에서 강의 들으면 너무 좋으다',
-      createdAt: '2021-05-09T04:20:57.000Z',
-      name: 'Bob',
-      username: 'bob',
-      url: 'https://cdn-icons-png.flaticon.com/512/2919/2919906.png',
-    },
-  ];
-
-  async getTweets(username) {
-    return username
-      ? this.tweets.filter((tweet) => tweet.username === username)
-      : this.tweets;
-  }
-
   async postTweet(text) {
     const tweet = {
       id: Date.now(),
