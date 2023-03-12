@@ -23,10 +23,12 @@ const validateSignup = [
   ...validateCredential,
   body('name').notEmpty().withMessage('name is missing'),
   body('email').isEmail().normalizeEmail().withMessage('invalid email'),
-  body('url').isURL().withMessage({ nullable: true, checkFalsy: true }),
+  body('url')
+    .isURL()
+    .withMessage('invalid URL')
+    .optional({ nullable: true, checkFalsy: true }),
   validate,
 ];
-
 router.post('/signup', validateSignup, authController.signup);
 
 router.post('/login', validateCredential, authController.login);

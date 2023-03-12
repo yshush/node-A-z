@@ -15,12 +15,18 @@ export default class HttpClient {
     try {
       data = await res.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
+
     if (res.status > 299 || res.status < 200) {
       const message =
-        data && data.message ? data.message : 'Something went wrong! 😵';
-      throw new Error(message);
+        data && data.message ? data.message : 'Something went wrong! 🤪';
+      const error = new Error(message);
+      if (res.status === 401) {
+        this.authErrorEventBus.notify(error);
+        return;
+      }
+      throw error;
     }
     return data;
   }
